@@ -15,7 +15,7 @@ tags: []
 
 注意需要使用 *\{\{site.baseurl\}\}* 来占位获取正确的路径
 
-![]({{site.baseurl}}/assets/img/banner/jekyll-bannerjekyll-banner.webp)
+![]({{site.baseurl}}/assets/img/2020/11/18/user.png)
 
 ### url 渲染
 

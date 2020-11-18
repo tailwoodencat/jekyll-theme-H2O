@@ -5,6 +5,7 @@ SOURCE = "."
 CONFIG = {
   'posts' => File.join(SOURCE, "_posts"),
   'post_ext' => "md",
+  'assets' => "assets",
 }
 
 def ask(message, valid_options)
@@ -50,3 +51,11 @@ task :post do
     post.puts "---"
   end
 end # task :post
+
+task :imgNewAssets do
+  foldername = File.join(CONFIG['assets'], 'img', "#{Time.now.strftime('%Y')}", "#{Time.now.strftime('%m')}", "#{Time.now.strftime('%d')}")
+  if not Dir.exists?(foldername)
+    abort("can not found #{foldername}, just make it") unless FileUtils.mkdir_p(foldername)
+  end
+  puts "now assets image at: {{site.baseurl}}/#{foldername}/"
+end
