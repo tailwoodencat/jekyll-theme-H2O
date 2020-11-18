@@ -7,6 +7,20 @@ CONFIG = {
   'post_ext' => "md",
 }
 
+def ask(message, valid_options)
+  if valid_options
+    answer = get_stdin("#{message} #{valid_options.to_s.gsub(/"/, '').gsub(/, /,'/')} ") while !valid_options.include?(answer)
+  else
+    answer = get_stdin(message)
+  end
+  answer
+end
+
+def get_stdin(message)
+  print message
+  STDIN.gets.chomp
+end
+
 # Usage: rake post title="A Title"
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
@@ -14,9 +28,13 @@ task :post do
   title = ENV["title"] || "new-post"
   # slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   slug = title.downcase.strip.gsub(' ', '-')
-  filename = File.join(CONFIG['posts'], "#{Time.now.strftime('%Y-%m-%d')}-#{slug}.#{CONFIG['post_ext']}")
+  foldername = File.join(CONFIG['posts'], "#{Time.now.strftime('%Y')}", "#{Time.now.strftime('%m')}", "#{Time.now.strftime('%d')}")
+  if not Dir.exists?(foldername)
+    abort("can not found #{foldername}, just make it") unless FileUtils.mkdir_p(foldername)
+  end
+  filename = File.join(foldername, "#{Time.now.strftime('%Y-%m-%d')}-#{slug}.#{CONFIG['post_ext']}")
   if File.exist?(filename)
-    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+    abort("rake aborted! #{filename} not overwrite") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
 
   puts "Creating new post: #{filename}"
