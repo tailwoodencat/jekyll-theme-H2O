@@ -29,6 +29,11 @@ install:
 debug:
 	bundle exec jekyll serve --host ${ENV_JEKYLL_HOST} --port ${ENV_JEKYLL_PORT}
 
+uglifyjs:
+	npm install uglifyjs-folder -g
+	uglifyjs-folder dev/js/ -o assets/js/index.min.js
+	# cp -f dev/js/index.js assets/js/
+
 help: printInfo
 	@echo "Help of task"
 	@echo "make init ~> init check"

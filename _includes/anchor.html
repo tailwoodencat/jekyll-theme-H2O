@@ -10,7 +10,7 @@ Author: Ray-Eldath
         line-height: 1;
         opacity: 0;
     }
-    
+
     .markdown-body .anchor .anchor-icon{
         font-size: 15px
     }
@@ -25,15 +25,15 @@ Author: Ray-Eldath
             anchorIcon.setAttribute("aria-hidden", true)
             anchor.setAttribute("class", "anchor")
             anchor.setAttribute("href", "#" + node.getAttribute("id"))
-            
+
             anchor.onmouseover = function() {
                 this.style.opacity = "0.4"
             }
-            
+
             anchor.onmouseout = function() {
                 this.style.opacity = "0"
             }
-            
+
             anchor.appendChild(anchorIcon)
             node.appendChild(anchor)
         }
