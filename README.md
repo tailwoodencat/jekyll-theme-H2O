@@ -4,6 +4,10 @@
 
 [https://github.com/kaeyleo/jekyll-theme-H2O](https://github.com/kaeyleo/jekyll-theme-H2O)
 
+在线预览
+- github.io see: [https://tailwoodencat.github.io/jekyll-theme-H2O/](https://tailwoodencat.github.io/jekyll-theme-H2O/)
+- netlify see: [https://tailwoodencat-jekyll-theme-H2O.netlify.app/](https://tailwoodencat-jekyll-theme-H2O.netlify.app/)
+
 ### Contribution 贡献
 
 Any types of contribution are welcome. Thanks.
