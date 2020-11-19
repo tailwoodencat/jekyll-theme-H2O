@@ -29,6 +29,9 @@ install:
 debug:
 	bundle exec jekyll serve --host ${ENV_JEKYLL_HOST} --port ${ENV_JEKYLL_PORT}
 
+build: install
+	bundle exec bundle exec jekyll build --baseurl /
+
 uglifyjs:
 	npm install uglifyjs-folder -g
 	uglifyjs-folder dev/js/ -o assets/js/index.min.js
@@ -36,8 +39,9 @@ uglifyjs:
 
 help: printInfo
 	@echo "Help of task"
-	@echo "make init ~> init check"
-	@echo "make debug ~> run at http://${ENV_JEKYLL_HOST}:${ENV_JEKYLL_PORT}/"
+	@echo "make init       ~> init check"
+	@echo "make debug      ~> run at http://${ENV_JEKYLL_HOST}:${ENV_JEKYLL_PORT}/"
+	@echo "make build      ~> build at _site"
 	@echo ""
 	@echo "=> new file as"
 	@echo "rake post title='article name'"
