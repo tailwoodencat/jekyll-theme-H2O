@@ -88,7 +88,7 @@ permalink: /:year/:month/:day/:title.html
 # close
 safe: false
 # Plugins
-plugins: [jekyll-paginate, jekyll-sitemap]
+plugins: [jekyll-paginate, jekyll-feed, jekyll-sitemap]
 
 # jekyll-sitemap https://github.com/jekyll/jekyll-sitemap
 defaults:
@@ -97,3 +97,7 @@ defaults:
       path:            "assets/**/*.pdf"
     values:
       sitemap:         false
+
+# jekyll-feed https://github.com/jekyll/jekyll-feed#already-have-a-feed-path
+feed:
+  path: atom.xml
