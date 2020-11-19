@@ -6,7 +6,7 @@
 
 在线预览
 - github.io see: [https://tailwoodencat.github.io/jekyll-theme-H2O/](https://tailwoodencat.github.io/jekyll-theme-H2O/)
-- netlify see: [https://tailwoodencat-jekyll-theme-H2O.netlify.app/](https://tailwoodencat-jekyll-theme-H2O.netlify.app/)
+- netlify see: [https://tailwoodencat-jekyll-theme-h2o.netlify.app/](https://tailwoodencat-jekyll-theme-h2o.netlify.app/)
 
 ### Contribution 贡献
 
