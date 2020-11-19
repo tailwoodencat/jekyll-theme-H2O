@@ -85,6 +85,8 @@ RSS: false
 # See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
 permalink: /:year/:month/:day/:title.html
 
+# close
+safe: false
 # Plugins
 plugins: [jekyll-paginate, jekyll-sitemap]
 
