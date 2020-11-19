@@ -1,5 +1,5 @@
 [build]
-  command = "jekyll build --baseurl /"
+  command = "bundle exec jekyll build --baseurl /"
   publish = "_site"
 
 [build.environment]
