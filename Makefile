@@ -24,6 +24,14 @@ init:
 	bundle -v
 
 install:
+	@if [ -d node_modules ]; \
+	then rm -rf node_modules && echo "~> cleaned node_modules"; \
+	else echo "~> has cleaned node_modules"; \
+	fi
+	@if [ -f package-lock.json ]; \
+	then rm -rf package-lock.json && echo "~> cleaned package-lock.json"; \
+	else echo "~> has cleaned package-lock.json"; \
+	fi
 	bundle install
 
 debug:
