@@ -1,5 +1,6 @@
 require 'rake'
 require 'yaml'
+require 'date'
 
 SOURCE = "."
 CONFIG = {
@@ -44,7 +45,8 @@ task :post do
     post.puts "layout: post"
     post.puts "title: \"#{title.gsub(/-/,' ')}\""
     post.puts "subtitle: \"sub title #{title.gsub(/-/,' ')}\""
-    post.puts "date: #{Time.now.strftime('%Y-%m-%d')}"
+    # post.puts "date: #{Time.now.strftime('%Y-%m-%d')}"
+    post.puts "date: #{DateTime.now.to_s}"
     post.puts "category: "
     post.puts "cover: "
     post.puts "tags: []"

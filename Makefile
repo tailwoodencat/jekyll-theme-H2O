@@ -13,6 +13,7 @@ printInfo:
 
 installDev:
 	@echo "=> start install rake more: https://github.com/ruby/rake"
+	npm install uglifyjs-folder -g
 	gem list rake	gem install rake
 	gem install bundler
 	gem install --user-install jekyll -v '${ENV_JEKYLL_VERSION}'
@@ -41,7 +42,6 @@ build: install
 	bundle exec bundle exec jekyll build --baseurl /
 
 uglifyjs:
-	npm install uglifyjs-folder -g
 	uglifyjs-folder dev/js/ -o assets/js/index.min.js
 
 minifySass:

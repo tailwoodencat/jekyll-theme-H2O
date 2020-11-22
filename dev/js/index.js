@@ -27,6 +27,7 @@ $(document).ready(function(){
         var navText = nav.find('a');
         var themeStyle = $('.g-banner').attr('data-theme');
         var scFlag = $(document).scrollTop();
+        var baseUrl = $('#base_url').val();
 
         $(document).scroll(function() {
             var scrollTop = $(this).scrollTop();
@@ -41,7 +42,7 @@ $(document).ready(function(){
                     'box-shadow': '0 1px 12px rgba(0, 0, 0, .08)'
                 });
                 logo.css({
-                    'background': 'url(' + document.URL + 'assets/icons/logo_' + themeStyle + '.svg) no-repeat center',
+                    'background': 'url(' + baseUrl + '/assets/icons/logo_' + themeStyle + '.svg) no-repeat center',
                     'background-size': '100% 100%'
                 });
                 navText.css('color', '#666');
@@ -53,7 +54,7 @@ $(document).ready(function(){
                     'box-shadow': 'none'
                 });
                 logo.css({
-                    'background': 'url(' + document.URL + 'assets/icons/logo.svg) no-repeat center',
+                    'background': 'url(' + baseUrl + 'assets/icons/logo.svg) no-repeat center',
                     'background-size': '100% 100%'
                 });
                 navText.css('color', '#fff');
