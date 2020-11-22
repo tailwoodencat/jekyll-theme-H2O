@@ -43,7 +43,18 @@ build: install
 uglifyjs:
 	npm install uglifyjs-folder -g
 	uglifyjs-folder dev/js/ -o assets/js/index.min.js
-	# cp -f dev/js/index.js assets/js/
+
+minifySass:
+	@if [ -d .sass-cache ]; \
+	then rm -rf .sass-cache && echo "~> cleaned .sass-cache"; \
+	else echo "~> has cleaned .sass-cache"; \
+	fi
+	sass -v
+	sass --style compressed --sourcemap=none dev/sass/app.scss assets/css/app.min.css
+
+
+minify: uglifyjs
+	@echo "minify success"
 
 help: printInfo
 	@echo "Help of task"

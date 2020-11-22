@@ -1,11 +1,13 @@
-.DS_Store
-*/.DS_Store
-
-Thumbs.db
-
-node_modules
+.sass-cache
 
 _site
 _theme_packages/*
 
+node_modules/
+
 *.lock
+
+.DS_Store
+*/.DS_Store
+
+Thumbs.db

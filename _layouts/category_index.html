@@ -1,0 +1,115 @@
+---
+title: Category
+layout: default
+---
+
+{% include header.html %}
+
+<div
+  class="g-banner category-banner {{ site.postPatterns | prepend: 'post-pattern-' }} {{ site.theme-color | prepend: 'bgcolor-' }}"
+  data-theme="{{ site.theme-color }}">
+  {% if page.paginator %}
+
+  <!-- Pagination is active -->
+  {% assign paginator = page.paginator %}
+
+  {% if paginator.previous_page != nil or paginator.next_page != nil %}
+  <!-- Show page number if we have multiple pages -->
+  <h2>{{ page.title }} 分类 当前 {{ paginator.page }} / {{ paginator.total_pages }} 页
+  </h2>
+  {% else %}
+  <!-- No page number if we only have a single page -->
+  <h2>{{ page.title }} 分类</h2>
+  {% endif %}
+  {% endif %}
+</div>
+
+<main class="g-container home-content">
+  <div class="article-list">
+    <section>
+      <!-- Show post excerpts for the current page -->
+      {% for post in paginator.posts limit:paginator.per_page %}
+      <article class="category-list">
+        <li>
+          <span>
+            <nobr class="title-category">{{ page.title }} </nobr>
+            <a href="{{ post.url | relative_url }}" class="category-name">{{ post.title }}</a>
+          </span>
+          {% if post.excerpt != nil %}
+          <a class="category-excerpt" href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
+          {% endif %}
+          <footer>
+            <span class="category-date"><i class="iconfont icon-date"></i> {{ post.date }}</span>
+          </footer>
+        </li>
+      </article>
+      {% endfor %}
+    </section>
+    <!-- Show navigation next/previous page links if applicable -->
+    <nav class="pagination">
+      <div class="page-links">
+        {% if paginator.previous_page %}
+        {% if paginator.previous_page == 1 %}
+        <a href="{{ '/category/' | append: page.title | relative_url}}" class="page-link">&laquo;</a>
+        {% else %}
+        <a href="{{ '/category/' | append: page.title | append: '/page' | append:paginator.previous_page | relative_url}}"
+          class="page-link"><span aria-hidden="true">&larr;</span> 上一页</a>
+        {% endif %}
+        {% endif %}
+        {% if paginator.next_page %}
+        <a href="{{ '/category/' | append: page.title | append: '/page' | append:paginator.next_page | relative_url}}"
+          class="page-link">&raquo;</a>
+        {% endif %}
+      </div>
+    </nav>
+
+  </div>
+
+  <aside class="g-sidebar-wrapper">
+    <div class="g-sidebar">
+      <section class="author-card">
+        <div class="avatar">
+          <img src="{{ site.avatar | relative_url }}" alt="">
+        </div>
+        <div class="author-name" rel="author">{{ site.author }}</div>
+        <div class="bio">
+          <p>{{ site.bio }}</p>
+        </div>
+        {% if site.sns.size > 0 %}
+        <ul id="sns-links" class="sns-links">
+          {% for s in site.sns %}
+          <li>
+            <a href="{{ s[1] }}" target="_blank">
+              <i class="iconfont icon-{{ s[0] }}"></i>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+
+      {% if site.recommend-tags and site.tags.size>0 %}
+      <section class="tags-card">
+        {% for tag in site.tags %}
+        {% if forloop.index > site.recommend-condition-size %}
+        {% break %}
+        {% endif %}
+        <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="tag">{{ tag[0]}}</a>
+        {% endfor %}
+      </section>
+      {% endif %}
+    </div>
+
+    {% if site.search %}
+    <div class="search-card">
+      <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
+      <i class="iconfont icon-search"></i>
+      <div class="search_result"></div>
+    </div>
+    {% endif %}
+
+  </aside>
+
+</main>
+
+{% include footer.html %}
