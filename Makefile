@@ -52,8 +52,7 @@ minifySass:
 	sass -v
 	sass --style compressed --sourcemap=none dev/sass/app.scss assets/css/app.min.css
 
-
-minify: uglifyjs
+minify: uglifyjs minifySass
 	@echo "minify success"
 
 help: printInfo
