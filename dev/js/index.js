@@ -213,26 +213,14 @@ $(document).ready(function () {
      * Night mode
      */
     function nightMode() {
+        var swTheme = localStorage.getItem('sw-theme');
+        if (swTheme === 'light') {
+            return;
+        }
         var el = $('body');
         var className = 'night-mode';
         var date = new Date();
         var hour = date.getHours();
-        var baseUrl = $('#base_url').val();
-        if (localStorage.getItem('sw-theme') === 'dark') {
-            el.addClass(className);
-            $('.theme-switch>i').css({
-                'background': 'url(' + baseUrl + 'assets/icons/contrast-light.svg) no-repeat center',
-                'background-size': '100% 100%'
-            });
-            return;
-        }
-        if (localStorage.getItem('sw-theme') === 'light') {
-            $('.theme-switch>i').css({
-                'background': 'url(' + baseUrl + 'assets/icons/contrast-dark.svg) no-repeat center',
-                'background-size': '100% 100%'
-            });
-            return;
-        }
         if (hour <= 6 || hour >= 18) {
             el.addClass(className);
         }
@@ -241,6 +229,8 @@ $(document).ready(function () {
     if ($('#nm-switch').val() === 'true') {
         window.localStorage && localStorage.setItem('theme', 'dark');
         nightMode();
+    } else {
+        window.localStorage && localStorage.setItem('theme', 'light');
     }
 
     /**
@@ -266,16 +256,24 @@ $(document).ready(function () {
     }
 
     function theme_switch_init() {
+        var baseUrl = $('#base_url').val();
+        var theme = localStorage.getItem('theme');
+        var swTheme = localStorage.getItem('sw-theme');
         if (isMobile()) {
             var info = $('.theme-switch');
             var icon = $('.theme-switch>i');
-            var swTheme = localStorage.getItem('sw-theme');
             if (swTheme === 'dark') {
                 info.append('THEME LIGHT');
             } else if (swTheme === 'light') {
                 info.append('THEME DARK');
             } else {
-                info.append('THEME DARK');
+                if (theme === 'dark') {
+                    info.append('THEME DARK');
+                } else if (theme === 'light') {
+                    info.append('THEME LIGHT');
+                } else {
+                    info.append('THEME DARK');
+                }
             }
             info.css({
                 "color": "#A5A8B0",
@@ -284,6 +282,39 @@ $(document).ready(function () {
                 "font-size": "12px"
             })
             icon.hide();
+        }
+        if (theme === swTheme) {
+             return;
+        }
+        if (swTheme === 'dark') {
+            $('.theme-switch>i').css({
+                'background': 'url(' + baseUrl + 'assets/icons/contrast-light.svg) no-repeat center',
+                'background-size': '100% 100%'
+            });
+        } else if (swTheme === 'light') {
+            $('.theme-switch>i').css({
+                'background': 'url(' + baseUrl + 'assets/icons/contrast-dark.svg) no-repeat center',
+                'background-size': '100% 100%'
+            });
+        } else {
+            if (theme) {
+                if (theme === 'dark') {
+                    $('.theme-switch>i').css({
+                        'background': 'url(' + baseUrl + 'assets/icons/contrast-light.svg) no-repeat center',
+                        'background-size': '100% 100%'
+                    });
+                } else if (theme === 'light') {
+                    $('.theme-switch>i').css({
+                        'background': 'url(' + baseUrl + 'assets/icons/contrast-dark.svg) no-repeat center',
+                        'background-size': '100% 100%'
+                    });
+                } else {
+                    $('.theme-switch>i').css({
+                        'background': 'url(' + baseUrl + 'assets/icons/contrast-light.svg) no-repeat center',
+                        'background-size': '100% 100%'
+                    });
+                }
+            }
         }
     }
     theme_switch_init();
@@ -300,6 +331,8 @@ $(document).ready(function () {
             window.localStorage && localStorage.setItem('sw-theme', 'dark');
             console.log('sw-theme', 'to dark');
             location.reload();
+        } else {
+
         }
     });
 });
