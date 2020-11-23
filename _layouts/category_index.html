@@ -39,7 +39,7 @@ layout: default
           <a class="category-excerpt" href="{{ post.url | relative_url }}">{{ post.excerpt }}</a>
           {% endif %}
           <footer>
-            <span class="category-date">{{ post.date }}</span>
+            <span class="category-date">{{ post.date | date:"%y-%m-%d" }}</span>
           </footer>
         </li>
       </article>
