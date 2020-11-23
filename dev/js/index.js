@@ -283,9 +283,6 @@ $(document).ready(function () {
             })
             icon.hide();
         }
-        if (theme === swTheme) {
-             return;
-        }
         if (swTheme === 'dark') {
             $('.theme-switch>i').css({
                 'background': 'url(' + baseUrl + 'assets/icons/contrast-light.svg) no-repeat center',
@@ -316,6 +313,17 @@ $(document).ready(function () {
                 }
             }
         }
+        var timeStampNowDayZero = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
+        var saveDayZero = localStorage.getItem('ts-now-day-zero');
+        if ( !saveDayZero) {
+            localStorage.setItem('ts-now-day-zero', timeStampNowDayZero);
+        } else {
+            if (saveDayZero === timeStampNowDayZero.toString()) {
+                return;
+            } else {
+                localStorage.setItem('sw-theme', '');
+            }
+        }
     }
     theme_switch_init();
 
@@ -327,20 +335,18 @@ $(document).ready(function () {
         var swTheme = localStorage.getItem('sw-theme');
         if (swTheme === 'dark') {
             window.localStorage && localStorage.setItem('sw-theme', 'light');
-            console.log('sw-theme', 'to light');
             location.reload();
         } else if (swTheme === 'light') {
             window.localStorage && localStorage.setItem('sw-theme', 'dark');
-            console.log('sw-theme', 'to dark');
             location.reload();
         } else {
             if (theme === 'dark') {
                 window.localStorage && localStorage.setItem('sw-theme', 'light');
-                console.log('sw-theme', 'to light');
+                // console.log('sw-theme', 'to light');
                 location.reload();
             } else if (theme === 'light') {
                 window.localStorage && localStorage.setItem('sw-theme', 'dark');
-                console.log('sw-theme', 'to dark');
+                // console.log('sw-theme', 'to dark');
                 location.reload();
             }
         }
