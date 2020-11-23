@@ -1,7 +1,7 @@
 <header class="g-header">
     <input type="hidden" id="base_url" value="{{ "/" | relative_url }}">
     <div class="g-logo">
-      <a href="{{ "/" | relative_url }}"></a>
+        <a href="{{ "/" | relative_url }}"></a>
     </div>
     <i id="menu-toggle" class="iconfont icon-menu"></i>
     <nav class="g-nav">
@@ -9,6 +9,9 @@
             {% for i in site.nav %}
             <li><a href="{{ i[1] | relative_url}}">{{ i[0] }}</a></li>
             {% endfor %}
+            <a href="javascript:void(0);" class="theme-switch">
+                <i class="iconfont contrast-dark"></i>
+            </a>
         </ul>
     </nav>
 </header>
