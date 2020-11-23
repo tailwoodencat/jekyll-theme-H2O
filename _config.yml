@@ -88,7 +88,7 @@ RSS: false
 permalink: /:year/:month/:day/:title:output_ext
 
 # close
-safe: false
+safe: true
 # Plugins
 plugins:
   - jekyll-feed
