@@ -323,16 +323,26 @@ $(document).ready(function () {
     $('.theme-switch').on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        if (localStorage.getItem('sw-theme') === 'dark') {
+        var theme = localStorage.getItem('theme');
+        var swTheme = localStorage.getItem('sw-theme');
+        if (swTheme === 'dark') {
             window.localStorage && localStorage.setItem('sw-theme', 'light');
             console.log('sw-theme', 'to light');
             location.reload();
-        } else if (localStorage.getItem('sw-theme') === 'light') {
+        } else if (swTheme === 'light') {
             window.localStorage && localStorage.setItem('sw-theme', 'dark');
             console.log('sw-theme', 'to dark');
             location.reload();
         } else {
-
+            if (theme === 'dark') {
+                window.localStorage && localStorage.setItem('sw-theme', 'light');
+                console.log('sw-theme', 'to light');
+                location.reload();
+            } else if (theme === 'light') {
+                window.localStorage && localStorage.setItem('sw-theme', 'dark');
+                console.log('sw-theme', 'to dark');
+                location.reload();
+            }
         }
     });
 });
