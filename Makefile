@@ -13,10 +13,12 @@ printInfo:
 
 installDev:
 	@echo "=> start install rake more: https://github.com/ruby/rake"
-	npm install uglifyjs-folder -g
-	gem list rake	gem install rake
+	gem list rake
+	gem install rake
 	gem install bundler
+	gem install sass
 	gem install --user-install jekyll -v '${ENV_JEKYLL_VERSION}'
+	npm install uglifyjs-folder -g
 
 init:
 	@echo "=> this project use rake more: https://github.com/ruby/rake"
