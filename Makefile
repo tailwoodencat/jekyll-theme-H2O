@@ -27,14 +27,10 @@ init:
 	bundle -v
 
 install:
-	@if [ -d node_modules ]; \
-	then rm -rf node_modules && echo "~> cleaned node_modules"; \
-	else echo "~> has cleaned node_modules"; \
-	fi
-	@if [ -f package-lock.json ]; \
-	then rm -rf package-lock.json && echo "~> cleaned package-lock.json"; \
-	else echo "~> has cleaned package-lock.json"; \
-	fi
+	-@RM -r node_modules
+	$(info has clean node_modules)
+	-@RM -r package-lock.json
+	$(info has remove package-lock.json)
 	bundle install
 
 debug:
@@ -59,6 +55,7 @@ minify: uglifyjs minifySass
 
 help: printInfo
 	@echo "Help of task"
+	@echo "make installDev ~> install debug mode need tools"
 	@echo "make init       ~> init check"
 	@echo "make debug      ~> run at http://${ENV_JEKYLL_HOST}:${ENV_JEKYLL_PORT}/"
 	@echo "make build      ~> build at _site"

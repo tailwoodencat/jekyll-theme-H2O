@@ -26,3 +26,13 @@ Any types of contribution are welcome. Thanks.
 [MIT](LICENSE)
 
 cover Jekyll-Theme-H2O is licensed under [MIT](https://github.com/kaeyleo/jekyll-theme-H2O/blob/master/LICENSE).
+
+## usage
+
+- install [make](https://www.gnu.org/software/make/)
+
+and see
+
+```
+make help
+```
