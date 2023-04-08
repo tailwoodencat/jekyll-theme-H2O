@@ -23,14 +23,45 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
+# ==fetch_env_time_parse
+#  env {arg_time} for time mark
+#  use as: {cmd} {arg_time}='2021-01-01 12:34:59'
+#  code:
+#    time_parse = fetch_env_time_parse('t')
+def fetch_env_time_parse(arg_time)
+  # env t for time mark
+  begin
+    t_env = ENV[arg_time] || ""
+    if t_env == ""
+      time_parse = DateTime.now
+    else
+      time_parse = DateTime.parse(t_env)
+    end
+  rescue => err
+    puts "error: env by #{arg_time}=#{ENV[arg_time]}"
+    time_parse = DateTime.now
+  # ensure
+  #   puts "mark time: #{time_parse.to_s}"
+  end
+  if time_parse.hour.to_s == '0'
+    time_parse = DateTime.parse("#{time_parse.strftime("%Y-%m-%d")} #{DateTime.now.strftime("%H:%M:%S")} +8")
+  end
+  # puts "new time: #{time_parse.to_s}"
+  time_parse
+end
+
 # Usage: rake post title="A Title"
-desc "Begin a new post in #{CONFIG['posts']} title='A Title'"
+desc "Begin a new post in #{CONFIG['posts']} title='A Title' t='2021-01-01 12:34:59'"
 task :post do
   abort("rake aborted: '#{CONFIG['posts']}' directory not found.") unless FileTest.directory?(CONFIG['posts'])
   title = ENV["title"] || "new-post"
+
+  # env t for time mark
+  time_parse = fetch_env_time_parse('t')
+
   # slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   slug = title.downcase.strip.gsub(' ', '-')
-  foldername = File.join(CONFIG['posts'], "#{Time.now.strftime('%Y')}", "#{Time.now.strftime('%m')}", "#{Time.now.strftime('%d')}")
+  foldername = File.join(CONFIG['posts'], "#{time_parse.strftime('%Y')}", "#{time_parse.strftime('%m')}", "#{time_parse.strftime('%d')}")
   # if not Dir.exists?(foldername) # ruby 2.0
   if not Dir.exist?(foldername) # ruby 3.0
     abort("can not found #{foldername}, just make it") unless FileUtils.mkdir_p(foldername)
@@ -63,23 +94,7 @@ task :assetsFoder do
   genre = ENV["g"] || "img"
 
   # env t for time mark
-  begin
-    t_env = ENV['t'] || ""
-    if t_env == ""
-      time_parse = DateTime.now
-    else
-      time_parse = DateTime.parse(t_env)
-    end
-  rescue => err
-    puts "error: by t=#{ENV['t']}"
-    time_parse = DateTime.now
-  # ensure
-  #   puts "mark time: #{time_parse.to_s}"
-  end
-  if time_parse.hour.to_s == '0'
-    time_parse = DateTime.parse("#{time_parse.strftime("%Y-%m-%d")} #{DateTime.now.strftime("%H:%M:%S")} +8")
-  end
-  # puts "new time: #{time_parse.to_s}"
+  time_parse = fetch_env_time_parse('t')
 
   foldername = File.join(CONFIG['assets'], "#{genre}", "#{time_parse.strftime('%Y')}", "#{time_parse.strftime('%m')}", "#{time_parse.strftime('%d')}")
   # if not Dir.exists?(foldername) # ruby 2.0
