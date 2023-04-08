@@ -24,14 +24,15 @@ def get_stdin(message)
 end
 
 # Usage: rake post title="A Title"
-desc "Begin a new post in #{CONFIG['posts']}"
+desc "Begin a new post in #{CONFIG['posts']} title='A Title'"
 task :post do
   abort("rake aborted: '#{CONFIG['posts']}' directory not found.") unless FileTest.directory?(CONFIG['posts'])
   title = ENV["title"] || "new-post"
   # slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   slug = title.downcase.strip.gsub(' ', '-')
   foldername = File.join(CONFIG['posts'], "#{Time.now.strftime('%Y')}", "#{Time.now.strftime('%m')}", "#{Time.now.strftime('%d')}")
-  if not Dir.exists?(foldername)
+  # if not Dir.exists?(foldername) # ruby 2.0
+  if not Dir.exist?(foldername) # ruby 3.0
     abort("can not found #{foldername}, just make it") unless FileUtils.mkdir_p(foldername)
   end
   filename = File.join(foldername, "#{Time.now.strftime('%Y-%m-%d')}-#{slug}.#{CONFIG['post_ext']}")
@@ -54,9 +55,35 @@ task :post do
   end
 end # task :post
 
-task :imgNewAssets do
-  foldername = File.join(CONFIG['assets'], 'img', "#{Time.now.strftime('%Y')}", "#{Time.now.strftime('%m')}", "#{Time.now.strftime('%d')}")
-  if not Dir.exists?(foldername)
+# Usage: rake assetsFoder t='2021-01-01 12:34:59'
+desc "a new assets foder as genre and time, as: -g img t='2021-01-01 12:34:59'"
+task :assetsFoder do
+
+  # env for genre like img svg
+  genre = ENV["g"] || "img"
+
+  # env t for time mark
+  begin
+    t_env = ENV['t'] || ""
+    if t_env == ""
+      time_parse = DateTime.now
+    else
+      time_parse = DateTime.parse(t_env)
+    end
+  rescue => err
+    puts "error: by t=#{ENV['t']}"
+    time_parse = DateTime.now
+  # ensure
+  #   puts "mark time: #{time_parse.to_s}"
+  end
+  if time_parse.hour.to_s == '0'
+    time_parse = DateTime.parse("#{time_parse.strftime("%Y-%m-%d")} #{DateTime.now.strftime("%H:%M:%S")} +8")
+  end
+  # puts "new time: #{time_parse.to_s}"
+
+  foldername = File.join(CONFIG['assets'], "#{genre}", "#{time_parse.strftime('%Y')}", "#{time_parse.strftime('%m')}", "#{time_parse.strftime('%d')}")
+  # if not Dir.exists?(foldername) # ruby 2.0
+  if not Dir.exist?(foldername) # ruby 3.0
     abort("can not found #{foldername}, just make it") unless FileUtils.mkdir_p(foldername)
   end
   puts "now assets image at: {{site.baseurl}}/#{foldername}/"

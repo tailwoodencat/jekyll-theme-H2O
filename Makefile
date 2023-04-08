@@ -66,4 +66,4 @@ help: printInfo
 	@echo "=> new file as"
 	@echo "rake post title='article name'"
 	@echo "=> new assets for image as:"
-	@echo "rake imgNewAssets"
+	@echo "rake assetsFoder -g img"
